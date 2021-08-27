@@ -1,0 +1,18 @@
+@model string
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="card bg-danger text-white">
+    <h1 class="card-header">Xin chào @Model</h1>
+    <div class="card-body">
+      <p class="card-text">
+        Bạn đang tìm hiểu về View (.cshtml) trong ASP.NET MVC
+      </p>
+    </div>
+</div>
+<hr>
+
+@this.Path
+

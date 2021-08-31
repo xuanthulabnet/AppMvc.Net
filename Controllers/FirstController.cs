@@ -130,6 +130,7 @@ namespace App.Controllers
         [TempData]
         public string StatusMessage { get; set; }
 
+        [AcceptVerbs("POST", "GET")]
         public IActionResult ViewProduct(int? id)
         {
             var product = _productService.Where(p => p.Id == id).FirstOrDefault();

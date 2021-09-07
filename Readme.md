@@ -2,11 +2,29 @@
 - Cài đặt lệnh ```dotnet aspnet-codegenerator```
 ```
 dotnet tool install -g dotnet-aspnet-codegenerator
+
+dotnet tool install --global dotnet-ef
+dotnet tool update dotnet-ef
 ```
 
 # Packages
 ```
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.Extensions.DependencyInjection
+dotnet add package Microsoft.Extensions.Logging
+dotnet add package Microsoft.Extensions.Logging.Console
+dotnet add package Microsoft.EntityFrameworkCore.Tools.DotNet
+```
+## Enable local HTTPS
+```
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
 ```
 
 ## Controller
@@ -27,7 +45,8 @@ dotnet aspnet-codegenerator controller -name Product -namespace App.Controllers 
 // {1} -> ten Controller
 // {2} -> ten Area
 
-options.ViewLocationFormats.Add("/MyView/{1}/{0}" + RazorViewEngine.ViewExtension);
+options.ViewLocationFormats.Add("/MyView/{1}/{0}" 
+                                + RazorViewEngine.ViewExtension);
 
 options.AreaViewLocationFormats.Add("/MyArea/{1}/View/{1}/{0}.cshtml");
 ```
@@ -55,9 +74,13 @@ dotnet aspnet-codegenerator area Product
 ## Url Generation
 ### UrlHelper : Action, ActionLink, RouteUrl, Link
 ```
-Url.Action("PlanetInfo", "Planet", new {id = 1}, Context.Request.Scheme)
+Url.Action("PlanetInfo", "Planet", 
+            new {id = 1}, Context.Request.Scheme);
 
-Url.RouteUrl("default", new {controller= "First", action="HelloView", id = 1, username =  "XuanThuLab"})
+Url.RouteUrl("default", new {controller= "First", 
+                             action="HelloView", 
+                            id = 1, 
+                            username =  "XuanThuLab"});
 ```
 ### HtmlTagHelper: ```<a> <button> <form>```
 Sử dụng thuộc tính:
@@ -67,4 +90,37 @@ asp-action="Action"
 asp-controller="Product"
 asp-route...="123"
 asp-route="default"
+```
+
+## Entity Framework, SQL Server
+- Chạy SQL Server trên Docker: thư mục ```sql-server-docker```
+- Chuỗi kết nối đến SQL Server trong ```appsettings.json```
+```json
+"ConnectionStrings": {
+  "AppMvcConnectionString": "Data Source=localhost,1433; Initial Catalog=appmvc; User ID=SA;Password=Password123"
+}
+```
+- Logger (```appsettings.json```)
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information",
+      "Microsoft.EntityFrameworkCore.Query": "Information",
+      "Microsoft.EntityFrameworkCore.Database.Command": "Information"
+    }
+  },
+```
+### Migrations
+```
+# Liệt kê
+dotnet ef migrations list
+
+# Tạo migration init
+dotnet ef migrations add init
+
+# Cập nhật migration cuối lên SQL Server
+dotnet ef database update
 ```

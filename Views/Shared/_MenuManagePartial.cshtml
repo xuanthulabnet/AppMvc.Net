@@ -1,14 +1,30 @@
-<div class="dropdown">
-    <a class="btn btn-outline-danger dropdown-toggle" href="#"
-        id="managedropdownmenu" data-toggle="dropdown">
-        Manage
-    </a>
-    <div class="dropdown-menu" aria-labelledby="managedropdownmenu">
-        <a class="dropdown-item" asp-action="Index" asp-controller="DbManage" asp-area="Database">
-            Database
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService authorizationService
+
+@{
+    var result = await authorizationService.AuthorizeAsync(this.User, "ViewManageMenu");
+}
+
+@if (result.Succeeded)
+{
+    <div class="dropdown">
+        <a class="btn btn-outline-danger dropdown-toggle" href="#"
+            id="managedropdownmenu" data-toggle="dropdown">
+            Manage
         </a>
-        <a class="dropdown-item" asp-action="Index" asp-controller="Contact" asp-area="Contact">
-            Quản lý liên hệ
-        </a>        
+        <div class="dropdown-menu" aria-labelledby="managedropdownmenu">
+            <a class="dropdown-item" asp-action="Index" asp-controller="DbManage" asp-area="Database">
+                Database
+            </a>
+            <a class="dropdown-item" asp-action="Index" asp-controller="Contact" asp-area="Contact">
+                Quản lý liên hệ
+            </a>    
+            <a class="dropdown-item" asp-action="Index" asp-controller="Role" asp-area="Identity">
+                Quản lý role (vai trò)
+            </a>  
+            <a class="dropdown-item" asp-action="Index" asp-controller="User" asp-area="Identity">
+                Quản lý thành viên
+            </a>                         
+        </div>
     </div>
-</div>
+}

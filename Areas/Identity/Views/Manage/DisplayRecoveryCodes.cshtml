@@ -1,0 +1,22 @@
+﻿@model DisplayRecoveryCodesViewModel
+@{
+    ViewData["Title"] = "Mã phục hồi";
+}
+
+<h1>@ViewData["Title"].</h1>
+<p class="text-success">@ViewData["StatusMessage"]</p>
+
+<div>
+    <h4>Đây là các mã phục hồi của bạn</h4>
+    <p>Lưu trữ các mã này đề phòng khi đăng nhập cần xác thực hai yếu tố</p>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Codes:</dt>
+        @foreach (var code in Model.Codes)
+        {
+        <dd>
+            <text>@code</text>
+        </dd>
+        }
+    </dl>
+</div>

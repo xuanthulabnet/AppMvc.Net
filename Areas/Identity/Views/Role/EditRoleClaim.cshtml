@@ -1,0 +1,38 @@
+@model EditClaimModel
+@{
+    ViewData["Title"] = "Gán đặc tính cho role";
+}
+<h2>@ViewData["Title"]: @Model.role.Name</h2>
+<partial name="_StatusMessage"></partial>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="ClaimType" class="control-label"></label>
+                <input asp-for="ClaimType" class="form-control" />
+                <span asp-validation-for="ClaimType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClaimValue" class="control-label"></label>
+                <input asp-for="ClaimValue" class="form-control" />
+                <span asp-validation-for="ClaimValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                <input type="submit" asp-action="DeleteClaim" asp-route-claimid="@ViewBag.claimid"  value="Xóa" class="btn btn-danger" />
+                <a class="btn btn-primary" asp-action="Edit" asp-route-roleid="@Model.role.Id">Edit role</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

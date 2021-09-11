@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using App.Data;
 using App.ExtendMethods;
 using App.Models;
 using App.Services;
@@ -39,6 +40,11 @@ namespace App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            var mailsetting = Configuration.GetSection("MailSettings");
+            services.Configure<MailSettings>(mailsetting);
+            services.AddSingleton<IEmailSender, SendMailService>();
+
 
             services.AddDbContext<AppDbContext>(options => {
                 string connectString = Configuration.GetConnectionString("AppMvcConnectionString");
@@ -122,6 +128,17 @@ namespace App
                     // .AddTwitter()
                     // .AddMicrosoftAccount()
                     ;
+
+                services.AddSingleton<IdentityErrorDescriber, AppIdentityErrorDescriber>();
+
+                services.AddAuthorization(options => {
+                    options.AddPolicy("ViewManageMenu", builder => {
+                        builder.RequireAuthenticatedUser();
+                        builder.RequireRole(RoleName.Administrator);
+                    });
+                });
+
+
 
         }
 

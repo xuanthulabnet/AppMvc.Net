@@ -1,0 +1,74 @@
+@model AddUserRoleModel
+@{
+    ViewData["Title"] = "Gán role";
+}
+
+<h4>Thiết lập role cho user: @Model.user.UserName</h4>
+<partial name="_StatusMessage" />
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="set-password-form" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="RoleNames"></label>
+                @Html.ListBoxFor(m => m.RoleNames, (IEnumerable<SelectListItem>)ViewBag.allRoles, new {
+                    id = "id-select-roles",
+                    @class = "w-100"
+                })
+                <span asp-validation-for="RoleNames" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Cập nhật</button>
+            <a class="btn btn-primary" asp-action="Index">Danh sách thành viên</a>
+        </form>
+        <hr>
+        <p>Các claim của user có được từ role:</p>
+        @if (Model.claimsInRole.Count >  0)
+        {
+            <ul>
+                @foreach (var claim in Model.claimsInRole)
+                {
+                    <li>@claim.ClaimType : @claim.ClaimValue</li>
+                }
+            </ul>
+        }
+        <hr>
+        <p>Các claim riêng:
+            <a asp-action="AddClaim" asp-route-userid="@Model.user.Id">+ Thêm claim riêng</a>     
+        </p>
+        @if (Model.claimsInUserClaim.Count >  0)
+        {
+            <ul>
+                @foreach (var claim in Model.claimsInUserClaim)
+                {
+                    <li>
+                        <a asp-action="EditClaim" asp-route-claimid="@claim.Id">@claim.ClaimType : @claim.ClaimValue</a>
+                    </li>
+                }
+            </ul>
+        }
+
+
+
+
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script src="~/lib/multiple-select/multiple-select.min.js"></script>
+    <link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
+
+    <script>
+        $("#id-select-roles").multipleSelect({
+            selectAll: false,
+            keepOpen: false,
+            isOpen: false,
+        });
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}

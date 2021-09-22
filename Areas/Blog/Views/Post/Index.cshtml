@@ -1,0 +1,69 @@
+@model IEnumerable<App.Models.Blog.Post>
+
+@{
+    ViewData["Title"] = "Danh sách BLog";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_AlertMessage" />
+
+<p>
+    <a asp-action="Create">Tạo bài viết mới</a>
+</p>
+<p>Tổng số bài viết: @ViewBag.totalPosts</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Published)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateUpdated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @(++ViewBag.postIndex)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PostId">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </a> 
+                <br>
+                <small>
+                    @string.Join(", ", item.PostCategories.Select(pc => pc.Category.Title))
+                </small>
+                
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Published)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+            <td>
+                
+                <a asp-action="Details" asp-route-id="@item.PostId">Chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.PostId">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<partial name="_PagingXTL" model="@ViewBag.pagingModel" />

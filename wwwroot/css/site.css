@@ -25,7 +25,7 @@ body {
 }
 
 .app-navbar {
-  background: rgba(0, 0, 0, 0.8);
+  background: #122153;
 }
 .app-navbar .text-dark {
   color: #b9c3ce !important;
@@ -34,18 +34,41 @@ body {
   color: white !important;
 }
 .app-navbar .navbar-brand {
-  color: #a57dea;
+  color: white;
 }
 .app-navbar .navbar-brand:hover {
-  color: #d727da !important;
+  color: #888188 !important;
 }
 .app-navbar .dropdown-toggle {
-  border-color: #a562ad;
-  color: #ae84b3;
+  border-color: transparent !important;
+  color: white;
+}
+
+.categorysidebar ul, .categorysidebar li {
+  list-style: none;
+  padding-left: 10px;
+}
+.categorysidebar a {
+  text-decoration: none;
+}
+.categorysidebar a:hover {
+  color: #a04747;
+}
+.categorysidebar a.active {
+  color: red;
+}
+.categorysidebar > ul > li > a {
+  font-weight: bold;
+}
+.categorysidebar h3 {
+  text-transform: uppercase;
+  font-size: 1.3em;
+  border-bottom: 1px solid blue;
+  padding-bottom: 10px;
 }
 
 .contact-firstcol {
-  background-color: #9854a0;
+  background-color: #1b3896;
   color: white;
   text-align: center;
   border-top-left-radius: 15px;
@@ -64,6 +87,23 @@ body {
   font-weight: 700;
 }
 .formcontact .btn-primary {
-  background-color: #9854a0 !important;
-  border-color: #9854a0;
+  background-color: #1b3896 !important;
+  border-color: #1b3896;
+}
+
+.app-footer {
+  background: #080A10;
+  color: white;
+  text-align: center;
+}
+
+.detailpost h1 {
+  font-weight: 300;
+}
+.detailpost .sapo {
+  font-weight: 500;
+  font-style: italic;
+}
+.detailpost img {
+  max-width: 100%;
 }

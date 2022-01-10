@@ -72,7 +72,7 @@ namespace App
             // services.AddSingleton<ProductService>();
             // services.AddSingleton<ProductService, ProductService>();
             // services.AddSingleton(typeof(ProductService));
-            services.AddSingleton(typeof(ProductService),  typeof(ProductService));
+            // services.AddSingleton(typeof(ProductService),  typeof(ProductService));
             services.AddSingleton<PlanetService>();
 
                         // Dang ky Identity

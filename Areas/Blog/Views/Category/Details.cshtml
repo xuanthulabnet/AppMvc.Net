@@ -1,10 +1,11 @@
 @model App.Models.Blog.Category
-
+@using App.Menu
+@inject AdminSidebarService _AdminSidebarService
 @{
     ViewData["Title"] = Model.Title;
+    Layout =  "/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
 
 <div>
     <h4>Category</h4>
@@ -29,3 +30,12 @@
     <a asp-action="Edit" asp-route-id="@Model.Id">Chỉnh sửa</a> |
     <a asp-action="Index">Danh sách chuyên mục</a>
 </div>
+
+@{
+    _AdminSidebarService.SetActive("Category", "Index", "Blog");
+}
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

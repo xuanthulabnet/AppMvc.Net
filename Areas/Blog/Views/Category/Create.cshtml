@@ -1,13 +1,10 @@
 @model App.Models.Blog.Category
-
+@using App.Menu
+@inject AdminSidebarService _AdminSidebarService
 @{
-    ViewData["Title"] = "Tạo chuyên mục Blog";             
+    ViewData["Title"] = "Tạo chuyên mục Blog";    
+    Layout =  "/Views/Shared/_LayoutAdmin.cshtml";         
 }
-
-
-
-
-<h1>@ViewData["Title"]</h1>
 
 <h4>Category</h4>
 <hr />
@@ -52,3 +49,12 @@
     var summernote  = new App.Models.Summernote("#Description");
 }
 <partial name="_Summernote" model="summernote" />
+
+@{
+    _AdminSidebarService.SetActive("Category", "Create", "Blog");
+}
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

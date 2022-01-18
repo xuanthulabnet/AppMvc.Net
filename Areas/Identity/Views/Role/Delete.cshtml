@@ -1,8 +1,10 @@
 @model IdentityRole
+@using App.Menu
+@inject AdminSidebarService _AdminSidebarService
 @{
     ViewData["Title"] = "Xóa role";
+    Layout =  "/Views/Shared/_LayoutAdmin.cshtml";
 }
-<h2>@ViewData["Title"]</h2>
 <partial name="_StatusMessage"></partial>
 
 <hr>
@@ -25,3 +27,13 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+@{
+    _AdminSidebarService.SetActive("Role", "Index", "Identity");
+}
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}
+

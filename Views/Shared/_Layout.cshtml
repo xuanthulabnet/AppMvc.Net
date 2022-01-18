@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - AppMvc.Net</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -35,7 +36,9 @@
                         </li>
   
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Contact" asp-controller="Contact" asp-action="SendContact">Liên hệ</a>
+                            <a class="nav-link text-dark" asp-area="Contact" asp-controller="Contact" asp-action="SendContact">
+                                <i class="fas fa-phone-alt"></i>
+                                Liên hệ</a>
                         </li>                        
                     </ul>
                     @await Html.PartialAsync("_CartPartial")

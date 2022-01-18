@@ -6,6 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using App.Data;
 using App.ExtendMethods;
+using App.Menu;
 using App.Models;
 using App.Services;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
@@ -147,6 +149,10 @@ namespace App
                 });
 
                 services.AddTransient<CartService>();
+
+
+                services.AddTransient<IActionContextAccessor, ActionContextAccessor>();
+                services.AddTransient<AdminSidebarService>();
 
 
         }

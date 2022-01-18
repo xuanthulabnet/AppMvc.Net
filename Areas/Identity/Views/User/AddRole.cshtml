@@ -1,6 +1,9 @@
 @model AddUserRoleModel
+@using App.Menu
+@inject AdminSidebarService _AdminSidebarService
 @{
     ViewData["Title"] = "Gán role";
+    Layout =  "/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h4>Thiết lập role cho user: @Model.user.UserName</h4>
@@ -71,4 +74,13 @@
     </script>
 
     <partial name="_ValidationScriptsPartial" />
+}
+
+@{
+    _AdminSidebarService.SetActive("User", "Index", "Identity");
+}
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
 }

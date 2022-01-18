@@ -1,10 +1,11 @@
 @model IEnumerable<App.Models.Product.ProductModel>
-
+@using App.Menu
+@inject AdminSidebarService _AdminSidebarService
 @{
     ViewData["Title"] = "Danh sách Sản phẩm";
+    Layout =  "/Views/Shared/_LayoutAdmin.cshtml";    
 }
 
-<h1>@ViewData["Title"]</h1>
 
 <partial name="_AlertMessage" />
 
@@ -73,3 +74,13 @@
 </table>
 
 <partial name="_PagingXTL" model="@ViewBag.pagingModel" />
+
+
+@{
+    _AdminSidebarService.SetActive("ProductManage", "Index", "Product");
+}
+
+@section Sidebar
+{
+    @Html.Raw(_AdminSidebarService.renderHtml())
+}

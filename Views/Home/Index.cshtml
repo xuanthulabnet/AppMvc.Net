@@ -1,10 +1,68 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
+    var products = ViewBag.products as IQueryable<App.Models.Product.ProductModel>;
+    var posts = ViewBag.posts as IQueryable<App.Models.Blog.Post>;
 }
 
 <partial name="_AlertMessage" />
 
-<div class="text-center">
-    <h1 class="display-4">Xin chào</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2>Các sản phẩm</h2>
+<div class="d-flex flex-wrap justify-content-between">
+    @foreach (var product in products)
+    {
+        var srcImg = "/contents/nophoto.png";
+        if (product.Photos.Any())
+        {
+            srcImg = $"/contents/Products/{product.Photos.FirstOrDefault().FileName}";
+        }
+
+        <div class="card mb-2" style="width: 24%">
+            <img src="@srcImg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@product.Title</h5>
+                <p class="card-text">
+                    @product.Description
+                </p>
+                <p>
+                    <strong class="text-danger">@product.ProductCategoryProducts.FirstOrDefault()?.Category.Title</strong>
+                </p>
+                <p>Giá: <strong>@product.Price</strong></p>
+                
+            </div>
+            <div class="card-body">
+                <a class="card-link" asp-area="Product" asp-controller="ViewProduct" asp-action="Detail" asp-route-productslug="@product.Slug">
+                    Chi tiết
+                </a>
+                <a asp-action="AddToCart" asp-area="Product"  asp-controller="ViewProduct" asp-route-productid="@product.ProductID" class="btn btn-primary ml-4">Đặt hàng</a>
+            </div>
+        </div>
+    }
 </div>
+<h2>Tin tức</h2>
+
+@foreach (var post in posts)
+{
+    <div class="media border-bottom mb-3 pb-3">
+        <img src="/contents/nophoto.png" class="mr-3" style="width: 80px">
+        <div class="media-body">
+            <h5 class="mt-0">
+                <a asp-area="Blog" asp-controller="ViewPost" asp-action="Detail" asp-route-postslug="@post.Slug">
+                    @post.Title
+                </a>
+            </h5>
+            @post.Description
+            <div>
+                Chủ đề:
+                <strong class="text-danger">
+                    @post.PostCategories.FirstOrDefault()?.Category.Title
+                </strong> 
+            </div>
+            <div class="author-row">
+                 Tác giả: <strong>@post.Author.UserName</strong> |
+                 Ngày cập nhật : <i>@post.DateUpdated.ToShortDateString()</i>
+            </div>
+        </div>
+    </div>
+}
+

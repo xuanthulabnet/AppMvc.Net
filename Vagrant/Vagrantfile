@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|                  # Bắt đầu khai báo máy ảo
+    config.vm.box = 'centos/7'                    # Sử dụng Box centos/7 tạo máy ảo
+
+    config.vm.network "private_network", ip: "192.168.56.99"   # Lập IP cho máy ảo
+    config.vm.hostname = "aspnet"                 # Đặt hostname cho máy ảo   
+    
+    config.vm.provider "virtualbox" do |vb|       # Máy ảo dùng nền tảng virtualbox, với các cấu hình bổ sung thêm cho provider
+       vb.name = "aspapp"                         # đặt tên máy ảo tạo ra
+       vb.cpus = 2                                # cấp 2 nhân CPU
+       vb.memory = "3048"                         # cấu hình dùng 2GB bộ nhớ
+    end                                           # hết cấu hình provider
+  
+    config.vm.provision "shell", path: "install.sh"
+
+  end                                             #  hết cấu hình tạo máy ảo
